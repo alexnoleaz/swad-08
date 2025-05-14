@@ -18,6 +18,8 @@ import jakarta.validation.Valid;
 
 import com.example.swad8.services.ProductService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import com.example.swad8.dtos.CreateProductDto;
@@ -31,16 +33,22 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Operation(summary = "Find all products")
+    @ApiResponse(responseCode = "200", description = "Successfully found all products")
     @GetMapping
     public List<ProductDto> findAll() {
         return productService.findAll();
     }
 
+    @Operation(summary = "Find a product by ID")
+    @ApiResponse(responseCode = "200", description = "Successfully found a product")
     @GetMapping("/{id}")
-    public ProductDto findById(@PathVariable Long id) {
+    public ProductDto findById(@PathVariable("id") Long id) {
         return productService.findById(id);
     }
 
+    @Operation(summary = "Create a new product")
+    @ApiResponse(responseCode = "201", description = "Successfully created a new product")
     @PostMapping
     public ResponseEntity<ProductDto> create(@Valid @RequestBody CreateProductDto input) {
         return ResponseEntity
@@ -48,14 +56,18 @@ public class ProductController {
                 .body(productService.create(input));
     }
 
+    @Operation(summary = "Update a product by ID")
+    @ApiResponse(responseCode = "200", description = "Successfully updated a product")
     @PutMapping("/{id}")
-    public ProductDto update(@PathVariable Long id, @Valid @RequestBody UpdateProductDto input) {
+    public ProductDto update(@PathVariable("id") Long id, @Valid @RequestBody UpdateProductDto input) {
         input.setId(id);
         return productService.update(input);
     }
 
+    @Operation(summary = "Delete a product by ID")
+    @ApiResponse(responseCode = "204", description = "Successfully deleted a product")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         productService.delete(id);
         return ResponseEntity.noContent().build();
     }

@@ -42,7 +42,7 @@ public class CategoryController {
     @Operation(summary = "Find a category by ID")
     @ApiResponse(responseCode = "200", description = "Successfully found a category")
     @GetMapping("/{id}")
-    public CategoryDto findById(Long id) {
+    public CategoryDto findById(@PathVariable("id") Long id) {
         return categoryService.findById(id);
     }
 
@@ -58,7 +58,7 @@ public class CategoryController {
     @Operation(summary = "Delete a category by ID")
     @ApiResponse(responseCode = "204", description = "Successfully deleted a category")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         categoryService.delete(id);
         return ResponseEntity.noContent().build();
     }

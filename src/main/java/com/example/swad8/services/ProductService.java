@@ -15,6 +15,7 @@ import com.example.swad8.repositories.ProductRepository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 
 @Service
 public class ProductService {
@@ -48,17 +49,19 @@ public class ProductService {
                         .orElseThrow(() -> new NoSuchElementException("Product with id " + id + " not found")));
     }
 
+    @Transactional
     public ProductDto create(CreateProductDto input) {
-        var product = productMapper.toEntity(input);
         var dbCategory = categoryRepository.findById(input.getCategoryId()).orElseThrow(
                 () -> new NoSuchElementException("Category with id " + input.getCategoryId() + " not found"));
 
+        var product = productMapper.toEntity(input);
         product.setCategory(dbCategory);
-        entityManager.persist(productMapper.toEntity(input));
 
+        entityManager.persist(product);
         return productMapper.toDto(product);
     }
 
+    @Transactional
     public ProductDto update(UpdateProductDto input) {
         var dbProduct = productRepository.findById(input.getId())
                 .orElseThrow(() -> new NoSuchElementException("Product with id " + input.getId() + " not found"));
