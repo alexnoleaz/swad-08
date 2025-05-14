@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreateProductDto {
     @NotBlank
+    @NotNull
     private String name;
 
     @NotNull

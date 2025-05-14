@@ -10,7 +10,6 @@ import com.example.swad8.dtos.CreateProductDto;
 import com.example.swad8.dtos.ProductDto;
 import com.example.swad8.dtos.UpdateProductDto;
 import com.example.swad8.mappers.ProductMapper;
-import com.example.swad8.models.Product;
 import com.example.swad8.repositories.CategoryRepository;
 import com.example.swad8.repositories.ProductRepository;
 
