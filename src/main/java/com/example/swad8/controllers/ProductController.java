@@ -17,10 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
 import com.example.swad8.services.ProductService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import com.example.swad8.dtos.CreateProductDto;
 import com.example.swad8.dtos.ProductDto;
 import com.example.swad8.dtos.UpdateProductDto;
 
+@Tag(name = "Products")
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
